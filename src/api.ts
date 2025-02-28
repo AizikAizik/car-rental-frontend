@@ -1,7 +1,7 @@
 import axios from "axios";
 import {Car, Booking, PaymentResponse, AuthResponse} from "./types";
 
-const API_URL = "http://localhost:8080/api/auth";
+const API_URL = "http://localhost:8080/api";
 
 export const getCars = async (): Promise<Car[]> => {
   const response = await axios.get<Car[]>(`${API_URL}/cars`);

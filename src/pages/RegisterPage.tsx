@@ -82,7 +82,7 @@ export default function RegisterPage() {
 
         <button
           type="submit"
-          className="w-full bg-green-500 text-white py-2 rounded"
+          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-300 ease-in-out cursor-pointer"
         >
           {mutation.isPending ? "Registering..." : "Register"}
         </button>

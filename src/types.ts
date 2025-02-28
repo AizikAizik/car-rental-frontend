@@ -28,7 +28,7 @@ export interface User {
   phone: string;
   password?: string; // Optional for security
   token?: string;
-  role: "USER" | "ADMIN"
+  roles: ["USER" | "ADMIN"];
 }
 
 export interface AuthResponse {
