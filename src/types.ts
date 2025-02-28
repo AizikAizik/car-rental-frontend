@@ -5,6 +5,7 @@ export interface Car {
   year: number;
   pricePerDay: number;
   available: boolean;
+  imageUrl: string;
 }
 
 export interface Booking {
@@ -18,6 +19,15 @@ export interface Booking {
 
 export interface PaymentResponse {
   clientSecret: string;
+}
+
+export interface ProfileResponse {
+  name: string;
+  email: string;
+  address: string;
+  phoneNumber: string;
+  id: string;
+  role: ["USER" | "ADMIN"]
 }
 
 export interface User {

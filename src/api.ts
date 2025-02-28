@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Car, Booking, PaymentResponse, AuthResponse} from "./types";
+import {Car, Booking, PaymentResponse, AuthResponse, ProfileResponse} from "./types";
 
 const API_URL = "http://localhost:8080/api";
 
@@ -33,4 +33,15 @@ export const loginUser = async (email: string, password: string): Promise<AuthRe
   const response = await axios.post<AuthResponse>(`${API_URL}/auth/login`, { email, password });
   return response.data;
 };
+
+export async function getUserProfile(token: string) : Promise<ProfileResponse> {
+  const response = await fetch(`${API_URL}/user/profile`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) throw new Error("Failed to fetch user profile");
+  return response.json(); // This should return { id, name, email }
+}
+
 
