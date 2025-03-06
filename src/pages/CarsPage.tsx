@@ -5,15 +5,15 @@ import { Car } from "../types";
 import { useAuth } from "../context/AuthContext";
 import Spinner from "../components/Spinner";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom"; // Add this import
 
 export default function CarsPage() {
-  const { user, logout } = useAuth(); // Get user details & logout function
+  const { user, logout } = useAuth();
   const { data: cars, isLoading } = useQuery<Car[]>({queryKey: ["cars"], queryFn: getCars});
   const [searchTerm, setSearchTerm] = useState("");
 
   if (isLoading) return <Spinner />;
 
-  // Filter cars based on search input
   const filteredCars = cars?.filter(
     (car) =>
       car.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -23,13 +23,11 @@ export default function CarsPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Navbar Component */}
       <Navbar user={user} onLogout={logout} />
 
       <div className="container mx-auto p-6">
         <h1 className="text-3xl font-bold mb-6 text-center">Available Cars</h1>
 
-        {/* Search Bar */}
         <div className="mb-6">
           <input
             type="text"
@@ -40,22 +38,25 @@ export default function CarsPage() {
           />
         </div>
 
-        {/* Cars Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {filteredCars?.length ? (
             filteredCars.map((car) => (
-              <div key={car.id} className="p-4 border rounded-lg shadow-lg bg-white">
+              <Link
+                to={`/car/${car.id}`}
+                key={car.id}
+                className="p-4 border rounded-lg shadow-lg bg-white transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105"
+              >
                 <img
                   src={car.imageUrl}
                   alt={`${car.brand} ${car.model}`}
-                  className="w-full h-40 object-cover rounded"
+                  className="w-full h-40 object-cover rounded transition-transform duration-300 ease-in-out"
                 />
                 <h2 className="text-xl font-bold mt-2">
                   {car.brand} {car.model}
                 </h2>
                 <p>Year: {car.year}</p>
                 <p>Price per day: ${car.pricePerDay}</p>
-              </div>
+              </Link>
             ))
           ) : (
             <p className="text-center text-gray-500 col-span-full">No cars found.</p>

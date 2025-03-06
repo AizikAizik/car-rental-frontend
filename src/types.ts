@@ -6,15 +6,13 @@ export interface Car {
   pricePerDay: number;
   available: boolean;
   imageUrl: string;
+  type: "AUTOMATIC" | "MANUAL";
 }
 
 export interface Booking {
-  id?: string;
-  userId: string;
   carId: string;
   startDate: string;
   endDate: string;
-  status?: "Pending" | "Confirmed" | "Cancelled";
 }
 
 export interface PaymentResponse {
@@ -28,6 +26,16 @@ export interface ProfileResponse {
   phoneNumber: string;
   id: string;
   role: ["USER" | "ADMIN"]
+}
+
+export interface BookingResponse {
+  id: string;
+  user: ProfileResponse;
+  car: Car;
+  priceOfBooking: number;
+  startDate: string;
+  endDate: string;
+  status: "Pending" | "Confirmed" | "Cancelled";
 }
 
 export interface User {

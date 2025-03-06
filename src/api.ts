@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Car, Booking, PaymentResponse, AuthResponse, ProfileResponse} from "./types";
+import {Car, Booking, PaymentResponse, AuthResponse, ProfileResponse, BookingResponse} from "./types";
 
 const API_URL = "http://localhost:8080/api";
 
@@ -8,8 +8,16 @@ export const getCars = async (): Promise<Car[]> => {
   return response.data;
 };
 
-export const createBooking = async (bookingData: Booking): Promise<Booking> => {
-  const response = await axios.post<Booking>(`${API_URL}/bookings`, bookingData);
+export const getCarById = async (carId: string): Promise<Car> => {
+  const response = await axios.get<Car>(`${API_URL}/cars/${carId}`);
+  if (!response.data) {
+    throw new Error("Failed to fetch car details");
+  }
+  return response.data;
+};
+
+export const createBooking = async (bookingData: Booking): Promise<BookingResponse> => {
+  const response = await axios.post<BookingResponse>(`${API_URL}/bookings`, bookingData);
   return response.data;
 };
 
