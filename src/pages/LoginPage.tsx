@@ -14,7 +14,7 @@ export default function LoginPage() {
 
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/cars";
+  const from = location.state?.from?.pathname || "/";
 
   const mutation = useMutation({
     mutationFn: () => loginUser(email, password),

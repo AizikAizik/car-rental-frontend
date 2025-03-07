@@ -21,7 +21,7 @@ export default function RegisterPage() {
     onSuccess: (data) => {
       login(data.token);
       setModalMessage("Registration successful!");
-      setTimeout(() => navigate("/cars"), 2000); // Redirect after 2s
+      setTimeout(() => navigate("/"), 2000); // Redirect after 2s
     },
     onError: () => setModalMessage("Registration failed, please try again."),
   });

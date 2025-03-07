@@ -60,4 +60,19 @@ export async function getUserProfile(token: string) : Promise<ProfileResponse> {
   return response.json(); // This should return { id, name, email }
 }
 
+export const getUserBookings = async (token: string): Promise<BookingResponse[]> => {
+  const response = await axios.get<BookingResponse[]>(`${API_URL}/bookings/user`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
 
+export const deleteBooking = async (bookingId: string, token: string): Promise<void> => {
+  await axios.delete(`${API_URL}/bookings/${bookingId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

@@ -2,13 +2,10 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCars } from "../api";
 import { Car } from "../types";
-import { useAuth } from "../context/AuthContext";
 import Spinner from "../components/Spinner";
-import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom"; // Add this import
 
 export default function CarsPage() {
-  const { user, logout } = useAuth();
   const { data: cars, isLoading } = useQuery<Car[]>({queryKey: ["cars"], queryFn: getCars});
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -23,8 +20,6 @@ export default function CarsPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navbar user={user} onLogout={logout} />
-
       <div className="container mx-auto p-6">
         <h1 className="text-3xl font-bold mb-6 text-center">Available Cars</h1>
 

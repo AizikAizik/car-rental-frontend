@@ -4,8 +4,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useMutation } from "@tanstack/react-query";
 import { createPayment } from "../api";
-// import Spinner from "../components/Spinner";
-import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import * as React from "react";
 
@@ -41,7 +39,7 @@ const CheckoutForm = ({ bookingId, totalPrice, token }: { bookingId: string; tot
         });
         setProcessing(false);
         alert("Payment successful! Booking confirmed.");
-        navigate("/cars");
+        navigate("/bookings");
       }
     },
     onError: () => {
@@ -76,7 +74,7 @@ const CheckoutForm = ({ bookingId, totalPrice, token }: { bookingId: string; tot
 
 export default function PaymentPage() {
   const { bookingId } = useParams<{ bookingId: string }>();
-  const { user, logout, token } = useAuth(); // Get token from AuthContext
+  const { token } = useAuth(); // Get token from AuthContext
   const location = useLocation();
   const totalPrice = location.state?.totalPrice || 0;
 
@@ -84,7 +82,6 @@ export default function PaymentPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navbar user={user} onLogout={logout} />
       <div className="container mx-auto p-6">
         <Link to={`/booking/${bookingId}`} className="text-blue-600 hover:underline mb-4 inline-block">
           ← Back to Booking

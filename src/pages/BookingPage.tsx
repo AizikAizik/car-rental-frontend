@@ -4,14 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 import { getCarById, createBooking } from "../api";
 import { Car, BookingResponse } from "../types";
 import Spinner from "../components/Spinner";
-import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function BookingPage() {
   const { carId } = useParams<{ carId: string }>();
-  const { user, logout, token } = useAuth();
+  const { token } = useAuth();
   const navigate = useNavigate();
 
   const { data: car, isLoading, error } = useQuery<Car>({
@@ -54,7 +53,6 @@ export default function BookingPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navbar user={user} onLogout={logout} />
       <div className="container mx-auto p-6">
         <Link to={`/car/${carId}`} className="text-blue-600 hover:underline mb-4 inline-block">
           ← Back to Car Details

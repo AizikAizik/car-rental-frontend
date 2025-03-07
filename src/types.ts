@@ -35,7 +35,7 @@ export interface BookingResponse {
   priceOfBooking: number;
   startDate: string;
   endDate: string;
-  status: "Pending" | "Confirmed" | "Cancelled";
+  status: "PENDING" | "CONFIRMED" | "CANCELLED";
 }
 
 export interface User {

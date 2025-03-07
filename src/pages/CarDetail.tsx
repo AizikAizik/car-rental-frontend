@@ -3,12 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getCarById } from "../api"; // You'll need to create this API function
 import { Car } from "../types";
 import Spinner from "../components/Spinner";
-import Navbar from "../components/Navbar";
-import { useAuth } from "../context/AuthContext";
 
 export default function CarDetail() {
   const { carId } = useParams<{ carId: string }>();
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const { data: car, isLoading, error } = useQuery<Car>({
@@ -27,10 +24,8 @@ export default function CarDetail() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navbar user={user} onLogout={logout} />
-
       <div className="container mx-auto p-6">
-        <Link to="/cars" className="text-blue-600 hover:underline mb-4 inline-block">
+        <Link to="/" className="text-blue-600 hover:underline mb-4 inline-block">
           ← Back to Cars
         </Link>
 
