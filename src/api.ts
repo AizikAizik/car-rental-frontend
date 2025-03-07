@@ -16,13 +16,21 @@ export const getCarById = async (carId: string): Promise<Car> => {
   return response.data;
 };
 
-export const createBooking = async (bookingData: Booking): Promise<BookingResponse> => {
-  const response = await axios.post<BookingResponse>(`${API_URL}/bookings`, bookingData);
+export const createBooking = async (bookingData: Booking, token: string | null): Promise<BookingResponse> => {
+  const response = await axios.post<BookingResponse>(
+    `${API_URL}/bookings`,
+    bookingData,
+    {headers: {Authorization: `Bearer ${token}`}}
+  );
   return response.data;
 };
 
-export const createPayment = async (amount: number): Promise<PaymentResponse> => {
-  const response = await axios.post<PaymentResponse>(`${API_URL}/payments/create?amount=${amount}`);
+export const createPayment = async (amount: number, token: string, bookingId: string): Promise<PaymentResponse> => {
+  const response = await axios.post<PaymentResponse>(
+    `${API_URL}/payments/create?amount=${amount}&bookingId=${bookingId}`,
+    {},
+    {headers: {Authorization: `Bearer ${token}`}}
+  );
   return response.data;
 };
 

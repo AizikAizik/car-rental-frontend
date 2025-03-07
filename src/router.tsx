@@ -8,6 +8,7 @@ import CarDetail from "./pages/CarDetail.tsx";
 import {useAuth} from "./context/AuthContext.tsx";
 import {JSX} from "react";
 import BookingPage from "./pages/BookingPage.tsx";
+import PaymentPage from "./pages/PaymentPage.tsx";
 
 function PrivateRoute({ children }: { children: JSX.Element }) {
   const { token } = useAuth();
@@ -31,6 +32,14 @@ export default function AppRouter() {
           element={
             <PrivateRoute>
               <BookingPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/payment/:bookingId"
+          element={
+            <PrivateRoute>
+              <PaymentPage />
             </PrivateRoute>
           }
         />

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../api";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate, Link } from "react-router-dom";
+import {useNavigate, Link, useLocation} from "react-router-dom";
 import Modal from "../components/Modal";
 
 export default function LoginPage() {
@@ -12,12 +12,16 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [modalMessage, setModalMessage] = useState<string | null>(null);
 
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/cars";
+
   const mutation = useMutation({
     mutationFn: () => loginUser(email, password),
     onSuccess: (data) => {
       login(data.token);
       setModalMessage("Login successful!");
-      setTimeout(() => navigate("/cars"), 2000); // Redirect after 2s
+      setTimeout(() => navigate(from, {replace: true}), 2000); // Redirect after 2s
     },
     onError: () => setModalMessage("Invalid credentials, please try again."),
   });

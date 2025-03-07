@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default function BookingPage() {
   const { carId } = useParams<{ carId: string }>();
-  const { user, logout } = useAuth();
+  const { user, logout, token } = useAuth();
   const navigate = useNavigate();
 
   const { data: car, isLoading, error } = useQuery<Car>({
@@ -44,7 +44,7 @@ export default function BookingPage() {
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
       };
-      const response: BookingResponse = await createBooking(bookingData);
+      const response: BookingResponse = await createBooking(bookingData, token);
       navigate(`/payment/${response.id}`, { state: { totalPrice: calculateTotalPrice() } });
     } catch (err) {
       console.error("Booking failed:", err);
